@@ -8,5 +8,21 @@
         <div class="card-header">
             Categories
         </div>
+        <div class="card-body">
+            <table class="table">
+                <thead>
+                    <th>Name</th>
+                </thead>
+                <tbody>
+                    @foreach ($categories as $item)
+                        <tr>
+                            <td>
+                                {{$item->name}}
+                            </td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
     </div>
 @endsection
