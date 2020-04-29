@@ -39,16 +39,13 @@ class CategoriesController extends Controller
         $this->validate($request,[
             'name' => 'required|unique:categories'
         ]);
-        $category  = new Category;
 
-        $category->name = $request->name;
-        
-        $category->save();
-
+        Category::create([
+            'name' => $request->name
+        ]);
         session()->flash('success','Category created successfully');
         
         return redirect(route('categories.index'));
-        // return view ('categories.index');
     }
 
     /**
