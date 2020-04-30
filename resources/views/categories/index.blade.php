@@ -12,6 +12,7 @@
             <table class="table">
                 <thead>
                     <th>Name</th>
+                    <th>Action</th>
                 </thead>
                 <tbody>
                     @foreach ($categories as $item)
@@ -19,10 +20,52 @@
                             <td>
                                 {{$item->name}}
                             </td>
+                            <td>
+                            <a href="{{route('categories.edit',$item->id)}}" class="btn btn-info btn-sm">Edit</a>
+                            <button type="button" class="btn btn-danger btn-sm" onclick="handleDelete({{$item->id}})">
+                                Delete
+                              </button>
+                        </td>
                         </tr>
                     @endforeach
                 </tbody>
             </table>
+            <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                <form action="" method="POST" id="deleteId">
+                        @csrf
+                        @method('delete')
+                        <div class="modal-content">
+                            <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Delete Category</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                            </div>
+                            <div class="modal-body">
+                                <p class="text-center text-bold">
+                                    Are you sure, want to delete category?
+                                </p>
+                            </div>
+                            <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+                            <button type="submit" class="btn btn-danger">Yes, Delete</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
         </div>
     </div>
+@endsection
+
+@section('scripts')
+    <script>
+        function handleDelete(id)
+        {
+            var catId = document.getElementById('deleteId');
+            catId.action = '/categories/'+id;
+            $('#deleteModal').modal('show')
+        }
+    </script>
 @endsection
